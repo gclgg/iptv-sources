@@ -24,7 +24,7 @@ EPG Sources are from:
 
 ## Matrix
 
-You can also use the services provided by Mirror Sites Matrix! See <https://gclgg.github.io> for more.
+You can also use the services provided by Mirror Sites Matrix! See <https://gclgg.github.io/iptv-sources/> for more.
 
 <!-- matrix_here -->
 ## Channel
@@ -66,8 +66,10 @@ You can also use the services provided by Mirror Sites Matrix! See <https://gclg
 
 Updated at **Fri Dec 06 2024 15:08:10 GMT+0000 (Coordinated Universal Time)**
 
-See <https://gclgg.github.io> to get more.
+[接 口](https://gclgg.github.io/iptv-sources/txt/fmml_ipv6.m3u)
 
+See <> to get more.
+https://gclgg.github.io/iptv-sources/
 ## LICENSE
 
 本项目基于 GPL-3.0 协议开源。
