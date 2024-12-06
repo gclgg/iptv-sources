@@ -66,9 +66,7 @@ You can also use the services provided by Mirror Sites Matrix! See <https://gclg
 
 Updated at **Fri Dec 06 2024 15:08:10 GMT+0000 (Coordinated Universal Time)**
 
-[接   口](https://gclgg.github.io/iptv-sources/fmml_ipv6.m3u)
-
-See <https://gclgg.github.io/iptv-sources/> to get more.
+[接   口](https://ghp.ci/raw.githubusercontent.com/gclgg/iptv-sources/gh-pages/fmml_ipv6.m3u)
 
 ## LICENSE
 
