@@ -68,7 +68,7 @@ You can also use the services provided by Mirror Sites Matrix! See <https://m3u.
 Updated at **Fri Dec 06 2024 08:42:59 GMT+0000 (Coordinated Universal Time)**
 
 See <https://m3u.ibert.me> to get more.
-
+接口随时更新[https://ghp.ci/raw.githubusercontent.com/gclgg/iptv-sources/refs/heads/gh-pages/fmml_ipv6.m3u]
 ## LICENSE
 
 GPL-3.0 &copy; Herbert He
