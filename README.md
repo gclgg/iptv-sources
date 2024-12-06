@@ -68,8 +68,8 @@ Updated at **Fri Dec 06 2024 15:08:10 GMT+0000 (Coordinated Universal Time)**
 
 [接 口](https://gclgg.github.io/iptv-sources/txt/fmml_ipv6.txt)
 
-See <> to get more.
-https://gclgg.github.io/iptv-sources/
+See <https://gclgg.github.io/iptv-sources/> to get more.
+
 ## LICENSE
 
 本项目基于 GPL-3.0 协议开源。
