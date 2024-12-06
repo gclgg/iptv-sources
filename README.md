@@ -72,4 +72,4 @@ See <https://gclgg.github.io/iptv-sources/> to get more.
 
 ## LICENSE
 
-本项目基于 GPL-3.0 协议开源。
+本项目Fork HerbertHe/iptv-sources。
