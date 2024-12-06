@@ -56,20 +56,5 @@ See <https://m3u.ibert.me> to get more.
 # IPTV_CHECKER_URL=http://[::1]:8081
 ```
 
-## Q&A
 
-- [How to close the github raw content proxy](https://github.com/HerbertHe/iptv-sources/discussions/38)
-- [How to set the custom github raw source proxy url](https://github.com/HerbertHe/iptv-sources/discussions/39)
-- [How to use `iptv-checker` feature](https://github.com/HerbertHe/iptv-sources/discussions/40)
-- [How to add your own rollback urls](https://github.com/HerbertHe/iptv-sources/discussions/41)
-- [How to create custom sources based on the upstream](https://github.com/HerbertHe/iptv-sources/discussions/68)
 
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=HerbertHe/iptv-sources&type=Date)](https://star-history.com/#HerbertHe/iptv-sources&Date)
-
-## LICENSE
-
-GPL-3.0 &copy; Herbert He
-
-本项目基于 GPL-3.0 协议开源。
