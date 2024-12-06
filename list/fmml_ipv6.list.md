@@ -164,5 +164,11 @@
 | 158 | 巴彦淖尔新闻 | livestream-bt.nmtv.cn | <https://livestream-bt.nmtv.cn/nmtv/2348general.m3u8?txSecret=6a4ddce077e41b976fe33619fbef2b30&txTime=771E8800> |
 | 159 | 赤峰新闻综合 | livestream-bt.nmtv.cn | <https://livestream-bt.nmtv.cn/nmtv/2351general.m3u8?txSecret=8857087aeec2cec44d178a18550fdb8a&txTime=771E8800> |
 | 160 | 乌兰察布新闻 | livestream-bt.nmtv.cn | <https://livestream-bt.nmtv.cn/nmtv/2354general.m3u8?txSecret=cf5f71d0000862b18f5813607b3dfd5b&txTime=771E8800> |
+| 161 | CGTN英语 | 0472.org | <https://0472.org/hls/cgtn.m3u8> |
+| 162 | CGTN记录 | 0472.org | <https://0472.org/hls/cgtnd.m3u8> |
+| 163 | CGTN俄语 | 0472.org | <https://0472.org/hls/cgtne.m3u8> |
+| 164 | CGTN法语 | 0472.org | <https://0472.org/hls/cgtnf.m3u8> |
+| 165 | CGTN西语 | 0472.org | <https://0472.org/hls/cgtnx.m3u8> |
+| 166 | CGTN阿语 | 0472.org | <https://0472.org/hls/cgtna.m3u8> |
 
-Updated at **Fri Dec 06 2024 08:42:52 GMT+0000 (Coordinated Universal Time)**
+Updated at **Fri Dec 06 2024 10:42:29 GMT+0000 (Coordinated Universal Time)**
