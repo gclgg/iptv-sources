@@ -66,7 +66,7 @@ You can also use the services provided by Mirror Sites Matrix! See <https://gclg
 
 Updated at **Sat Dec 07 2024 03:09:34 GMT+0000 (Coordinated Universal Time)**
 
-See <https://gclgg.github.io> to get more.
+See <https://gclgg.github.io/live> to get more.
 
 ## LICENSE
 
