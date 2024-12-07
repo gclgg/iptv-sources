@@ -24,7 +24,7 @@ EPG Sources are from:
 
 ## Matrix
 
-You can also use the services provided by Mirror Sites Matrix! See <https://gclgg.github.io/iptv-sources/> for more.
+You can also use the services provided by Mirror Sites Matrix! See <https://gclgg.github.io> for more.
 
 <!-- matrix_here -->
 ## Channel
@@ -60,13 +60,13 @@ You can also use the services provided by Mirror Sites Matrix! See <https://gclg
 | --- | --- | ---------- |
 | 112114.xyz | [112114_xyz.xml](/epg/112114_xyz.xml) | - |
 | fanmingming/live | [fmml.xml](/epg/fmml.xml) | - |
-| 51zmt.top | [51zmt.xml](/epg/51zmt.xml) | ✅ |
-| 51zmt.top cc | [51zmt_cc.xml](/epg/51zmt_cc.xml) | ✅ |
-| 51zmt.top difang | [51zmt_df.xml](/epg/51zmt_df.xml) | ✅ |
+| 51zmt.top | [51zmt.xml](/epg/51zmt.xml) | - |
+| 51zmt.top cc | [51zmt_cc.xml](/epg/51zmt_cc.xml) | - |
+| 51zmt.top difang | [51zmt_df.xml](/epg/51zmt_df.xml) | - |
 
-Updated at **Sat Dec 07 2024 03:09:34 GMT+0000 (Coordinated Universal Time)**
+Updated at **Sat Dec 07 2024 03:59:18 GMT+0000 (Coordinated Universal Time)**
 
-See <https://gclgg.github.io/iptv-sources/> to get more.
+See <https://gclgg.github.io> to get more.
 
 ## LICENSE
 
