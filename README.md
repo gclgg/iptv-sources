@@ -62,9 +62,9 @@ You can also use the services provided by Mirror Sites Matrix! See <https://gclg
 | fanmingming/live | [fmml.xml](/epg/fmml.xml) | - |
 | 51zmt.top | [51zmt.xml](/epg/51zmt.xml) | ✅ |
 | 51zmt.top cc | [51zmt_cc.xml](/epg/51zmt_cc.xml) | ✅ |
-| 51zmt.top difang | [51zmt_df.xml](/epg/51zmt_df.xml) | ✅ |
+| 51zmt.top difang | [51zmt_df.xml](/epg/51zmt_df.xml) | - |
 
-Updated at **Sun Dec 08 2024 20:32:29 GMT+0000 (Coordinated Universal Time)**
+Updated at **Sun Dec 08 2024 22:36:55 GMT+0000 (Coordinated Universal Time)**
 
 See <https://gclgg.github.io> to get more.
 
