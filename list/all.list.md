@@ -1069,7 +1069,7 @@
 | 1063 | [BD]rudaw | stream1.freetv.fun | <https://stream1.freetv.fun/21afab78acb058d9cb1ce54004208dd5787c5869db84005b1834f3f26f2a2ccc.m3u8> |
 | 1064 | [BD]garuda tv | stream1.freetv.fun | <https://stream1.freetv.fun/1ba04fa8dbf9c76346ce0f0c37c54cca2cf1e6b0a8f3eea1271c4c9f200069bd.m3u8> |
 | 1065 | [HD]runtime | stream1.freetv.fun | <https://stream1.freetv.fun/f95eb3a5ea681b079d2fbd34204eb43d2a30f761e9d775fcfd34bdac0788a067.m3u8> |
-| 1066 | [BD]russia today | stream1.freetv.fun | <https://stream1.freetv.fun/4d7697b8989b06294a65c0812eb1d7e67d66c546b3c3a9267d34d5220f9c8777.m3u8> |
+| 1066 | [BD]usa today | stream1.freetv.fun | <https://stream1.freetv.fun/c7717738df1c848a0c42bc876d7263969c0f9c79bfbff2bc08a601458d98a182.m3u8> |
 | 1067 | [VGA]rustavi 2 | stream1.freetv.fun | <https://stream1.freetv.fun/6a34674790b4aae12be456faf68e33f19fd9099434d2a5b4d3503899483682c2.m3u8> |
 | 1068 | [BD]ryan and friends | stream1.freetv.fun | <https://stream1.freetv.fun/37193aba2c96e98cc6d533e86667157a21cf7472125830d1ed7a47e54bffc9f6.m3u8> |
 | 1069 | [HD]0.-s sport | stream1.freetv.fun | <https://stream1.freetv.fun/ac401467c7b9ac28372842ac09e6e0be3b3041e8d5e2d4babb6a1352dd4c1ab2.m3u8> |
@@ -2078,4 +2078,4 @@
 | 2072 | [BD]소상공인방송 | stream1.freetv.fun | <https://stream1.freetv.fun/8b059be92e1d851bfcedeb99bbd37b00ef4c21bce792c6f147a19e4857cea026.m3u8> |
 | 2073 | [BD]연합뉴스tv | stream1.freetv.fun | <https://stream1.freetv.fun/4207ebf0f1c354ac75cc77a05692276ca2efee2340f1c706435787a6f083a7bf.m3u8> |
 
-Updated at **Mon Dec 09 2024 20:38:16 GMT+0000 (Coordinated Universal Time)**
+Updated at **Mon Dec 09 2024 22:39:30 GMT+0000 (Coordinated Universal Time)**
