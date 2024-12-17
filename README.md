@@ -60,11 +60,11 @@ You can also use the services provided by Mirror Sites Matrix! See <https://gclg
 | --- | --- | ---------- |
 | 112114.xyz | [112114_xyz.xml](/epg/112114_xyz.xml) | - |
 | fanmingming/live | [fmml.xml](/epg/fmml.xml) | - |
-| 51zmt.top | [51zmt.xml](/epg/51zmt.xml) | - |
-| 51zmt.top cc | [51zmt_cc.xml](/epg/51zmt_cc.xml) | - |
-| 51zmt.top difang | [51zmt_df.xml](/epg/51zmt_df.xml) | - |
+| 51zmt.top | [51zmt.xml](/epg/51zmt.xml) | ✅ |
+| 51zmt.top cc | [51zmt_cc.xml](/epg/51zmt_cc.xml) | ✅ |
+| 51zmt.top difang | [51zmt_df.xml](/epg/51zmt_df.xml) | ✅ |
 
-Updated at **Tue Dec 17 2024 18:49:00 GMT+0000 (Coordinated Universal Time)**
+Updated at **Tue Dec 17 2024 20:33:09 GMT+0000 (Coordinated Universal Time)**
 
 See <https://gclgg.github.io> to get more.
 
