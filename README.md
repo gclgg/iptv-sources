@@ -38,7 +38,7 @@ You can also use the services provided by Mirror Sites Matrix! See <https://gclg
 | YanG-1989 Gather | [y_g.m3u](/y_g.m3u) <br> [y_g.txt](/txt/y_g.txt) | [List for YanG-1989 Gather](/list/y_g.list) | 341 | - |
 | joevess/IPTV home | [j_home.m3u](/j_home.m3u) <br> [j_home.txt](/txt/j_home.txt) | [List for joevess/IPTV home](/list/j_home.list) | 58 | - |
 | joevess/IPTV iptv | [j_iptv.m3u](/j_iptv.m3u) <br> [j_iptv.txt](/txt/j_iptv.txt) | [List for joevess/IPTV iptv](/list/j_iptv.list) | 444 | - |
-| iptv.org All | [o_all.m3u](/o_all.m3u) <br> [o_all.txt](/txt/o_all.txt) | [List for iptv.org All](/list/o_all.list) | 10487 | - |
+| iptv.org All | [o_all.m3u](/o_all.m3u) <br> [o_all.txt](/txt/o_all.txt) | [List for iptv.org All](/list/o_all.list) | 10484 | - |
 | iptv.org China | [o_cn.m3u](/o_cn.m3u) <br> [o_cn.txt](/txt/o_cn.txt) | [List for iptv.org China](/list/o_cn.list) | 536 | - |
 | iptv.org stream China | [o_s_cn.m3u](/o_s_cn.m3u) <br> [o_s_cn.txt](/txt/o_s_cn.txt) | [List for iptv.org stream China](/list/o_s_cn.list) | 502 | - |
 | iptv.org stream China 112114 | [o_s_cn_112114.m3u](/o_s_cn_112114.m3u) <br> [o_s_cn_112114.txt](/txt/o_s_cn_112114.txt) | [List for iptv.org stream China 112114](/list/o_s_cn_112114.list) | 18 | - |
@@ -60,11 +60,11 @@ You can also use the services provided by Mirror Sites Matrix! See <https://gclg
 | --- | --- | ---------- |
 | 112114.xyz | [112114_xyz.xml](/epg/112114_xyz.xml) | - |
 | fanmingming/live | [fmml.xml](/epg/fmml.xml) | - |
-| 51zmt.top | [51zmt.xml](/epg/51zmt.xml) | ✅ |
+| 51zmt.top | [51zmt.xml](/epg/51zmt.xml) | - |
 | 51zmt.top cc | [51zmt_cc.xml](/epg/51zmt_cc.xml) | - |
 | 51zmt.top difang | [51zmt_df.xml](/epg/51zmt_df.xml) | - |
 
-Updated at **Wed Dec 18 2024 22:37:57 GMT+0000 (Coordinated Universal Time)**
+Updated at **Thu Dec 19 2024 03:04:26 GMT+0000 (Coordinated Universal Time)**
 
 See <https://gclgg.github.io> to get more.
 
