@@ -36,26 +36,7 @@ See <https://m3u.ibert.me> to get more.
 - [How to deploy with nodejs](https://github.com/HerbertHe/iptv-sources/discussions/37)
 
    [接                     口](https://ghgo.xyz/raw.githubusercontent.com/gclgg/iptv-sources/refs/heads/gh-pages/fmml_ipv6.m3u)
-## Supported Environment Variables
 
-```shell
-# add custom rollback urls, default is empty
-# ROLLBACK_URLS=https://xxxx.xxx.com
-
-# close source proxy, default is false
-# CLOSE_SOURCE_PROXY=true
-
-# add custom github raw source proxy url
-# The custom proxy service you configured MUST supports the request urls, like `${CUSTOM_GITHUB_RAW_SOURCE_PROXY_URL}/https://raw.githubusercontent.com/xxx/xxx`
-# If you want to deploy the ghproxy by yourself, see https://github.com/hunshcn/gh-proxy
-# CUSTOM_GITHUB_RAW_SOURCE_PROXY_URL=https://ghp.ci/
-
-# enable iptv checker, default is false
-# ENABLE_IPTV_CHECKER=true
-
-# add iptv checker url, default is empty
-# IPTV_CHECKER_URL=http://[::1]:8081
-```
 
 
 
