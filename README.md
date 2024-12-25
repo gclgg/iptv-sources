@@ -35,7 +35,7 @@ See <https://m3u.ibert.me> to get more.
 - [How to deploy with docker](https://github.com/HerbertHe/iptv-sources/discussions/36)
 - [How to deploy with nodejs](https://github.com/HerbertHe/iptv-sources/discussions/37)
 
-   [接                     口](https://raw.githubusercontent.com/gclgg/iptv-sources/refs/heads/gh-pages/fmml_ipv6.m3u)
+   [接                     口](https://ghgo.xyz/raw.githubusercontent.com/gclgg/iptv-sources/refs/heads/gh-pages/fmml_ipv6.m3u)
 ## Supported Environment Variables
 
 ```shell
