@@ -122,13 +122,14 @@ export const writeEpgJsonByDate = () => {
   }
 
   const byDateChannel = mergeByDateAndChannel(allItems);
-
+  console.log(`[TASK] Merge EPG JSON by date and channel, total ${byDateChannel.size} items`);
   for (const [key, data] of byDateChannel) {
     const [date, channel] = key.split('\t');
     const dateDir = path.join(epgDir, date);
     if (!fs.existsSync(dateDir)) fs.mkdirSync(dateDir, { recursive: true });
     const fileName = `${sanitizeChannelFileName(channel)}.json`;
     fs.writeFileSync(path.join(dateDir, fileName), JSON.stringify(data, null, 2));
+    console.log(`[TASK] Write EPG JSON for ${date} ${channel}`);
   }
 };
 

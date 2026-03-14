@@ -48,7 +48,10 @@ describe('parseEpgXml', () => {
   it('should parse XMLTV format and return date, channel, item', () => {
     const xml = `<?xml version="1.0"?>
 <tv>
-  <programme start="20240314080000 +0800" stop="20240314090000 +0800" channel="CCTV-1">
+  <channel id="1" name="CCTV-1">
+    <display-name>CCTV-1</display-name>
+  </channel>
+  <programme start="20240314080000 +0800" stop="20240314090000 +0800" channel="1">
     <title>新闻</title>
   </programme>
 </tv>`;
@@ -59,5 +62,12 @@ describe('parseEpgXml', () => {
     expect(out[0].item.start).toBe('08:00');
     expect(out[0].item.end).toBe('09:00');
     expect(out[0].item.title).toBe('新闻');
+
+    const byDateChannel = mergeByDateAndChannel(out);
+    expect(byDateChannel.has('20240314\tCCTV-1')).toBe(true);
+    const epg = byDateChannel.get('20240314\tCCTV-1')!.epg;
+    expect(epg.map((e) => e.title)).toEqual(['新闻']);
+    expect(epg[0].start).toBe('08:00');
+    expect(epg[0].end).toBe('09:00');
   });
 });
