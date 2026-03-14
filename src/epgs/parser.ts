@@ -110,10 +110,17 @@ export function parseEpgXml(
     const stopAttr = (p['@_stop'] ?? '').trim();
     const time = parseXmltvTime(startAttr, stopAttr);
     const title = pickTitle(p);
-    if (!channelId || !time) continue;
+    if (!channelId || !time) {
+      continue;
+    }
+    const channel = channels[channelId];
+    if (!channel) {
+      console.warn(`[WARNING] Channel ${channelId} not found in XML`);
+      continue;
+    }
     out.push({
       date: time.date,
-      channel: channels[channelId],
+      channel,
       item: { start: time.start, end: time.end, title },
     });
   }
