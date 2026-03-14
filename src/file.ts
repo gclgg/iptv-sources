@@ -6,6 +6,11 @@ import { with_github_raw_url_proxy } from "./sources"
 import { m3u2txt } from "./utils"
 import type { ISource } from "./sources"
 import type { TEPGSource } from "./epgs/utils"
+import {
+    mergeByDateAndChannel,
+    parseEpgXml,
+    sanitizeChannelFileName,
+} from "./epgs/parser"
 
 export const getContent = async (src: ISource | TEPGSource) => {
     const now = hrtime.bigint()
@@ -107,6 +112,38 @@ export const writeEpgXML = (f_name: string, xml: string) => {
     }
 
     fs.writeFileSync(path.resolve("m3u", "epg", `${f_name}.xml`), xml)
+}
+
+/**
+ * 解析 m3u/epg 下所有 .xml，按日期(YYYYmmdd)、频道生成 JSON 到 epg/YYYYmmdd/channelname.json
+ */
+export const writeEpgJsonByDate = () => {
+    const epgDir = path.resolve("m3u", "epg")
+    if (!fs.existsSync(epgDir)) return
+
+    const files = fs.readdirSync(epgDir)
+    const xmlFiles = files.filter(
+        (f) => path.extname(f) === ".xml" && fs.statSync(path.join(epgDir, f)).isFile()
+    )
+
+    const allItems: Array<{ date: string; channel: string; item: import("./epgs/parser").EpgProgrammeItem }> = []
+    for (const f of xmlFiles) {
+        const xml = fs.readFileSync(path.join(epgDir, f), "utf-8")
+        allItems.push(...parseEpgXml(xml))
+    }
+
+    const byDateChannel = mergeByDateAndChannel(allItems)
+
+    for (const [key, data] of byDateChannel) {
+        const [date, channel] = key.split("\t")
+        const dateDir = path.join(epgDir, date)
+        if (!fs.existsSync(dateDir)) fs.mkdirSync(dateDir, { recursive: true })
+        const fileName = `${sanitizeChannelFileName(channel)}.json`
+        fs.writeFileSync(
+            path.join(dateDir, fileName),
+            JSON.stringify(data, null, 2)
+        )
+    }
 }
 
 const cleanDir = (p: string) => {

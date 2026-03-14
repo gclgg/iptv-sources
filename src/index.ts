@@ -6,6 +6,7 @@ import {
     getContent,
     mergeSources,
     mergeTxts,
+    writeEpgJsonByDate,
     writeEpgXML,
     writeM3u,
     writeM3uToTxt,
@@ -155,6 +156,7 @@ Promise.allSettled(
         const epgs_res = result.epgs.map((r) => (<any>r).value)
         mergeTxts()
         mergeSources()
+        writeEpgJsonByDate()
         writeTvBoxJson("tvbox", sources, "Channels")
         updateChannelsJson(sources, sources_res, epgs_sources)
         updateReadme(sources, sources_res, epgs_sources, epgs_res)
