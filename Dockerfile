@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM yunnysunny/node
 
 WORKDIR /app
 COPY . /app
