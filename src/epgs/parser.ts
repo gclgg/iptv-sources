@@ -56,11 +56,34 @@ type ParsedProgramme = Record<string, unknown> & {
   '@_stop'?: string;
   '@_channel'?: string;
 };
+type ChannelId = string;
+type ChannelName = string;
+type ChannelFromXml = {
+  '@_id'?: string;
+  'display-name'?: string;
+};
+type ParsedChannel = Record<ChannelId, ChannelName>;
 
 function toProgrammeList(programme: unknown): ParsedProgramme[] {
   if (!programme) return [];
   if (Array.isArray(programme)) return programme as ParsedProgramme[];
   return [programme as ParsedProgramme];
+}
+
+function toChannelList(channel: unknown): ParsedChannel {
+  const parsedChannels: ParsedChannel = {};
+  if (!channel) return parsedChannels;
+  let channels: ChannelFromXml[] = [];
+  if (!Array.isArray(channel)) {
+    channels = [channel as ChannelFromXml];
+  }
+
+  for (const c of channels) {
+    const id = c['@_id'] ?? '';
+    const name = c['display-name'] ?? '';
+    parsedChannels[id] = name;
+  }
+  return parsedChannels;
 }
 
 /**
@@ -73,23 +96,24 @@ export function parseEpgXml(
     ignoreAttributes: false,
     attributeNamePrefix: '@_',
   });
-  const parsed = parser.parse(xml) as { tv?: { programme?: unknown } };
+  const parsed = parser.parse(xml) as { tv?: { programme?: unknown; channel?: unknown } };
   const tv = parsed?.tv;
   if (!tv) return [];
 
+  const channels = toChannelList(tv.channel);
   const programmes = toProgrammeList(tv.programme);
   const out: Array<{ date: string; channel: string; item: EpgProgrammeItem }> = [];
 
   for (const p of programmes) {
-    const channel = (p['@_channel'] ?? '').trim();
+    const channelId = (p['@_channel'] ?? '').trim();
     const startAttr = (p['@_start'] ?? '').trim();
     const stopAttr = (p['@_stop'] ?? '').trim();
     const time = parseXmltvTime(startAttr, stopAttr);
     const title = pickTitle(p);
-    if (!channel || !time) continue;
+    if (!channelId || !time) continue;
     out.push({
       date: time.date,
-      channel,
+      channel: channels[channelId],
       item: { start: time.start, end: time.end, title },
     });
   }
@@ -101,14 +125,14 @@ export function parseEpgXml(
  */
 export function mergeByDateAndChannel(
   allItems: Array<{ date: string; channel: string; item: EpgProgrammeItem }>
-): Map<string, EpgChannelJson> {
+): Map<ChannelName, EpgChannelJson> {
   const byKey = new Map<string, EpgProgrammeItem[]>();
   for (const { date, channel, item } of allItems) {
     const key = `${date}\t${channel}`;
     if (!byKey.has(key)) byKey.set(key, []);
     byKey.get(key)!.push(item);
   }
-  const result = new Map<string, EpgChannelJson>();
+  const result = new Map<ChannelName, EpgChannelJson>();
   for (const [key, items] of byKey) {
     const [, channel] = key.split('\t');
     items.sort((a, b) => a.start.localeCompare(b.start));
