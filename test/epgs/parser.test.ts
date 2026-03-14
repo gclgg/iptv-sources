@@ -1,4 +1,6 @@
 import { describe, it, expect } from 'vitest';
+import fs from 'fs';
+import path from 'path';
 import { sanitizeChannelFileName, mergeByDateAndChannel, parseEpgXml } from '../../src/epgs/parser';
 
 describe('sanitizeChannelFileName', () => {
@@ -69,5 +71,10 @@ describe('parseEpgXml', () => {
     expect(epg.map((e) => e.title)).toEqual(['新闻']);
     expect(epg[0].start).toBe('08:00');
     expect(epg[0].end).toBe('09:00');
+  });
+  it('should parse XMLTV format and return date, channel, item from xml file', () => {
+    const xml = fs.readFileSync(path.join(__dirname, 'e.xml'), 'utf-8');
+    const out = parseEpgXml(xml);
+    expect(out.length).toBeGreaterThan(0);
   });
 });

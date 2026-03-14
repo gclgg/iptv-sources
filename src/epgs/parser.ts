@@ -73,15 +73,15 @@ function toProgrammeList(programme: unknown): ParsedProgramme[] {
 function toChannelList(channel: unknown): ParsedChannel {
   const parsedChannels: ParsedChannel = {};
   if (!channel) return parsedChannels;
-  let channels: ChannelFromXml[] = [];
+  let channels: ChannelFromXml[] = channel as ChannelFromXml[];
   if (!Array.isArray(channel)) {
     channels = [channel as ChannelFromXml];
   }
 
   for (const c of channels) {
     const id = c['@_id'] ?? '';
-    const name = c['display-name'] ?? '';
-    parsedChannels[id] = name;
+    const name = c['display-name'] as { '#text'?: string };
+    parsedChannels[id] = name?.['#text'] ?? '';
   }
   return parsedChannels;
 }
@@ -100,8 +100,13 @@ export function parseEpgXml(
   const tv = parsed?.tv;
   if (!tv) return [];
 
+  if (!tv.channel) {
+    console.warn(`[WARNING] No channels found in XML`);
+    return [];
+  }
+
   const channels = toChannelList(tv.channel);
-  console.log(`[TASK] Parse ${channels.size} channels`, channels);
+  console.log(`[TASK] Parse ${Object.keys(channels).length} channels`);
   const programmes = toProgrammeList(tv.programme);
   const out: Array<{ date: string; channel: string; item: EpgProgrammeItem }> = [];
 
