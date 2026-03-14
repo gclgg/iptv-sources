@@ -15,6 +15,7 @@
     "serve": "node ./dist/serve.js",
     "serve:dev": "nodemon ./dist/serve.js",
     "matrix": "node ./dist/matrix.js",
+    "build:matrix": "tsx src/matrix.ts",
     "release": "node ./scripts/release.js",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
