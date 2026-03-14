@@ -4,7 +4,7 @@ import { sources } from '../../src/sources';
 import { hotel_tvn_sources } from '../../src/sources/hotel_tvn';
 import { youhun_sources } from '../../src/sources/youhun';
 import { zbds_sources } from '../../src/sources/zbds';
-import { Collector } from '../../src/utils';
+import { Collector, m3u2txt } from '../../src/utils';
 describe('sources', () => {
   it('sources should be a non-empty array', () => {
     expect(Array.isArray(sources)).toBe(true);
@@ -73,5 +73,10 @@ describe('youhun_sources', () => {
       expect(urls.length).toBeGreaterThan(0);
       expect(urls.every((u) => typeof u === 'string' && u.length > 0)).toBe(true);
     }
+
+    const txt = m3u2txt(lines);
+    expect(txt).toBeDefined();
+    expect(typeof txt).toBe('string');
+    expect(txt.length).toBeGreaterThan(0);
   });
 });

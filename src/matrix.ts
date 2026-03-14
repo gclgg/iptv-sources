@@ -14,44 +14,36 @@ const matrixGen = (
 ${m}
 `;
 
-const requestMirrorSite = (url: string): Promise<string> => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const res = await fetch(`${url}/channels.json`);
-      if (/^[2]/.test(res.status.toString())) {
-        const channles = JSON.parse(await res.text()) as IChannelsResult;
-        resolve(new Date(channles.updated_at).toString());
-      } else {
-        reject(`Get Updated Failed: **${res.statusText}**`);
-      }
-    } catch (err) {
-      reject(`Get Updated Failed: **${err.toString()}**`);
+const requestMirrorSite = async (url: string): Promise<string> => {
+  try {
+    const res = await fetch(`${url}/channels.json`);
+    if (/^[2]/.test(res.status.toString())) {
+      const channles = JSON.parse(await res.text()) as IChannelsResult;
+      return new Date(channles.updated_at).toString();
     }
-  });
+    throw new Error(`Get Updated Failed: **${res.statusText}**`);
+  } catch (err) {
+    throw new Error(`Get Updated Failed: **${(err as Error).toString()}**`);
+  }
 };
 
 const updateMatrix = async () => {
   const readme_p = path.resolve('m3u', 'README.md');
 
   const m = await Promise.allSettled(
-    sites_matrix?.map(async (m) => {
+    sites_matrix?.map(async (site) => {
       let test = '';
       try {
-        test = await requestMirrorSite(m.url);
+        test = await requestMirrorSite(site.url);
       } catch (err) {
-        test = err;
-      } finally {
-        return `| ${m.protocol} | <${m.url}> | ${m.frequence} | ${test} | ${m.idc} | ${m.provider} |`;
+        test = err instanceof Error ? err.message : String(err);
       }
+      return `| ${site.protocol} | <${site.url}> | ${site.frequence} | ${test} | ${site.idc} | ${site.provider} |`;
     })
   );
 
   const back = matrixGen(
-    (<any>m)
-      .map((mm) => {
-        return mm.value;
-      })
-      .join('\n')
+    m.map((mm) => (mm.status === 'fulfilled' ? mm.value : String(mm.reason))).join('\n')
   );
 
   const readme = fs.readFileSync(readme_p, 'utf8').toString();

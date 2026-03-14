@@ -76,16 +76,17 @@ export const default_txt_filter: ISource['filter'] = (raw, caller, collectFn): [
   const m3uLines: string[] = ['#EXTM3U x-tvg-url="https://tv.whyun.com/epg/51zmt.xml"'];
   if (caller === 'normal' && collectFn) {
     for (let i = 0; i < rawArray.length; i++) {
-      const [name, url] = rawArray[i].split(',');
+      const line = rawArray[i].trim();
+      const [name, url] = line.split(',');
+      if (url == '#genre#') {
+        group = name.trim();
+        continue;
+      }
+
       if (!url) {
         continue;
       }
-      let result = null;
-      if ((result = url.trim().match(/^#(.*)#$/))) {
-        group = result[1];
-        continue;
-      }
-      const extinf = `#EXTINF:-1, tvg-id="${name}" tvg-name="${name}" 
+      const extinf = `#EXTINF:-1 tvg-id="${name}" tvg-name="${name}" \
 tvg-logo="https://tv-res.pages.dev/logo/${name}.png" group-title="${group}",${name}`;
       collectM3uSource(extinf, url, collectFn);
       m3uLines.push(extinf, url);

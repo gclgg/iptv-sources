@@ -23,67 +23,66 @@ import { runCustomTask } from './task/custom';
 cleanFiles();
 
 // 执行脚本
-Promise.allSettled(
-  sources.map(async (sr) => {
-    console.log(`[TASK] Fetch ${sr.name}`);
-    try {
-      const [ok, text, now] = await getContent(sr);
-      if (ok && !!text) {
-        console.log(
-          `Fetch m3u from ${sr.name} finished, cost ${
-            (parseInt(hrtime.bigint().toString()) - parseInt(now.toString())) / 10e6
-          } ms`
-        );
+(async () => {
+  try {
+    const sourcesResult = await Promise.allSettled(
+      sources.map(async (sr) => {
+        console.log(`[TASK] Fetch ${sr.name}`);
+        try {
+          const [ok, text, now] = await getContent(sr);
+          if (ok && !!text) {
+            console.log(
+              `Fetch m3u from ${sr.name} finished, cost ${
+                (parseInt(hrtime.bigint().toString()) - parseInt(now.toString())) / 10e6
+              } ms`
+            );
 
-        const sourcesCollector = Collector(undefined, (v) => !/^([a-z]+):\/\//.test(v));
+            const sourcesCollector = Collector(undefined, (v) => !/^([a-z]+):\/\//.test(v));
 
-        const [m3u, count] = sr.filter(
-          text as string,
-          ['o_all', 'all'].includes(sr.f_name) ? 'skip' : 'normal',
-          sourcesCollector.collect
-        );
+            const [m3u, count] = sr.filter(
+              text as string,
+              ['o_all', 'all'].includes(sr.f_name) ? 'skip' : 'normal',
+              sourcesCollector.collect
+            );
 
-        writeM3u(sr.f_name, m3u);
-        writeM3uToTxt(sr.name, sr.f_name, m3u);
-        writeSources(sr.name, sr.f_name, sourcesCollector.result());
-        writeTvBoxJson(sr.f_name, [{ name: sr.name, f_name: sr.f_name }], sr.name);
-        updateChannelList(sr.name, sr.f_name, m3u);
-        return ['normal', count];
-      } else {
-        // rollback
-        const res = await updateByRollback(sr, sr.filter);
-        if (res) {
-          const [m3u, count] = res;
-          writeM3u(sr.f_name, m3u);
-          writeM3uToTxt(sr.name, sr.f_name, m3u);
-          writeTvBoxJson(sr.f_name, [{ name: sr.name, f_name: sr.f_name }], sr.name);
-          updateChannelList(sr.name, sr.f_name, m3u, true);
-          return ['rollback', count];
-        } else {
+            writeM3u(sr.f_name, m3u);
+            writeM3uToTxt(sr.name, sr.f_name, m3u);
+            writeSources(sr.name, sr.f_name, sourcesCollector.result());
+            writeTvBoxJson(sr.f_name, [{ name: sr.name, f_name: sr.f_name }], sr.name);
+            updateChannelList(sr.name, sr.f_name, m3u);
+            return ['normal', count];
+          }
+          // rollback
+          const res = await updateByRollback(sr, sr.filter);
+          if (res) {
+            const [m3u, count] = res;
+            writeM3u(sr.f_name, m3u);
+            writeM3uToTxt(sr.name, sr.f_name, m3u);
+            writeTvBoxJson(sr.f_name, [{ name: sr.name, f_name: sr.f_name }], sr.name);
+            updateChannelList(sr.name, sr.f_name, m3u, true);
+            return ['rollback', count];
+          }
+          // rollback failed
+          console.log(`[WARNING] m3u ${sr.name} get failed!`);
+          return ['rollback', void 0];
+        } catch (e) {
+          console.log(e);
+          const res = await updateByRollback(sr, sr.filter);
+          if (res) {
+            const [m3u, count] = res;
+            writeM3u(sr.f_name, m3u);
+            writeM3uToTxt(sr.name, sr.f_name, m3u);
+            writeTvBoxJson(sr.f_name, [{ name: sr.name, f_name: sr.f_name }], sr.name);
+            updateChannelList(sr.name, sr.f_name, m3u, true);
+            return ['rollback', count];
+          }
           // rollback failed
           console.log(`[WARNING] m3u ${sr.name} get failed!`);
           return ['rollback', void 0];
         }
-      }
-    } catch (e) {
-      console.log(e);
-      const res = await updateByRollback(sr, sr.filter);
-      if (res) {
-        const [m3u, count] = res;
-        writeM3u(sr.f_name, m3u);
-        writeM3uToTxt(sr.name, sr.f_name, m3u);
-        writeTvBoxJson(sr.f_name, [{ name: sr.name, f_name: sr.f_name }], sr.name);
-        updateChannelList(sr.name, sr.f_name, m3u, true);
-        return ['rollback', count];
-      } else {
-        // rollback failed
-        console.log(`[WARNING] m3u ${sr.name} get failed!`);
-        return ['rollback', void 0];
-      }
-    }
-  })
-)
-  .then(async (result) => {
+      })
+    );
+
     const epgs = await Promise.allSettled(
       epgs_sources.map(async (epg_sr) => {
         console.log(`[TASK] Fetch EPG ${epg_sr.name}`);
@@ -98,46 +97,37 @@ Promise.allSettled(
             );
             writeEpgXML(epg_sr.f_name, text as string);
             return ['normal'];
-          } else {
-            // rollback
-            const text = await updateEPGByRollback(epg_sr);
-            if (text) {
-              writeEpgXML(epg_sr.f_name, text as string);
-              return ['rollback'];
-            } else {
-              // rollback failed
-              console.log(`[WARNING] EPG ${epg_sr.name} get failed!`);
-              return [void 0];
-            }
           }
+          // rollback
+          const epgText = await updateEPGByRollback(epg_sr);
+          if (epgText) {
+            writeEpgXML(epg_sr.f_name, epgText as string);
+            return ['rollback'];
+          }
+          // rollback failed
+          console.log(`[WARNING] EPG ${epg_sr.name} get failed!`);
+          return [void 0];
         } catch (_e) {
           console.warn('Error fetching EPG', _e);
-          const text = await updateEPGByRollback(epg_sr);
-          if (text) {
-            writeEpgXML(epg_sr.f_name, text as string);
+          const epgText = await updateEPGByRollback(epg_sr);
+          if (epgText) {
+            writeEpgXML(epg_sr.f_name, epgText as string);
             return ['rollback'];
-          } else {
-            // rollback failed
-            console.log(`[WARNING] EPG ${epg_sr.name} get failed!`);
-            return [void 0];
           }
+          // rollback failed
+          console.log(`[WARNING] EPG ${epg_sr.name} get failed!`);
+          return [void 0];
         }
       })
     );
 
-    return {
-      sources: result,
-      epgs: epgs,
-    };
-  })
-  .then((result) => {
     console.log(`[TASK] Write important files`);
     type SourceSettled = PromiseSettledResult<(string | number)[] | (string | undefined)[]>;
     type EpgSettled = PromiseSettledResult<string[] | undefined[]>;
-    const sources_res = result.sources.map((r: SourceSettled) =>
+    const sources_res = sourcesResult.map((r: SourceSettled) =>
       r.status === 'fulfilled' ? r.value : undefined
     ) as Array<[string, number | undefined]>;
-    const epgs_res = result.epgs.map((r: EpgSettled) =>
+    const epgs_res = epgs.map((r: EpgSettled) =>
       r.status === 'fulfilled' ? r.value : undefined
     ) as Array<[string | undefined]>;
     mergeTxts();
@@ -146,11 +136,10 @@ Promise.allSettled(
     writeTvBoxJson('tvbox', sources, 'Channels');
     updateChannelsJson(sources, sources_res, epgs_sources);
     updateReadme(sources, sources_res, epgs_sources, epgs_res);
-  })
-  .then(() => {
+
     console.log(`[TASK] Make custom sources`);
     runCustomTask();
-  })
-  .catch((err) => {
+  } catch (err) {
     console.error(err);
-  });
+  }
+})();
