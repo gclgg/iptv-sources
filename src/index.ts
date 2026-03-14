@@ -108,7 +108,7 @@ cleanFiles();
           console.log(`[WARNING] EPG ${epg_sr.name} get failed!`);
           return [void 0];
         } catch (_e) {
-          console.warn('Error fetching EPG', _e);
+          console.warn('Error fetching EPG', _e, epg_sr);
           const epgText = await updateEPGByRollback(epg_sr);
           if (epgText) {
             writeEpgXML(epg_sr.f_name, epgText as string);
