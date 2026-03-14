@@ -101,6 +101,7 @@ export function parseEpgXml(
   if (!tv) return [];
 
   const channels = toChannelList(tv.channel);
+  console.log(`[TASK] Parse ${channels.size} channels`, channels);
   const programmes = toProgrammeList(tv.programme);
   const out: Array<{ date: string; channel: string; item: EpgProgrammeItem }> = [];
 
