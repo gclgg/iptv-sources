@@ -13,7 +13,7 @@ export interface EpgProgrammeItem {
 
 export interface EpgChannelJson {
   channel: string;
-  epg: EpgProgrammeItem[];
+  epg_data: EpgProgrammeItem[];
 }
 
 /** XMLTV start/stop 格式: 20240314080000 +0800 → 提取 YYYYmmdd 与 HH:mm */
@@ -149,7 +149,7 @@ export function mergeByDateAndChannel(
   for (const [key, items] of byKey) {
     const [, channel] = key.split('\t');
     items.sort((a, b) => a.start.localeCompare(b.start));
-    result.set(key, { channel, epg: items });
+    result.set(key, { channel, epg_data: items });
   }
   return result;
 }
