@@ -26,7 +26,7 @@ function parseXmltvTime(
   if (!startMatch || !stopMatch) return null;
   const start = startMatch[1];
   const stop = stopMatch[1];
-  const date = start.slice(0, 8);
+  const date = `${start.slice(0, 4)}-${start.slice(4, 6)}-${start.slice(6, 8)}`;
   const startTime = `${start.slice(8, 10)}:${start.slice(10, 12)}`;
   const endTime = `${stop.slice(8, 10)}:${stop.slice(10, 12)}`;
   return { date, start: startTime, end: endTime };
