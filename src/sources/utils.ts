@@ -86,8 +86,9 @@ export const default_txt_filter: ISource['filter'] = (raw, caller, collectFn): [
       if (!url) {
         continue;
       }
+      const logoName = name.replace(/CCTV/g, 'cctv');
       const extinf = `#EXTINF:-1 tvg-id="${name}" tvg-name="${name}" \
-tvg-logo="https://tv-res.pages.dev/logo/${name}.png" group-title="${group}",${name}`;
+tvg-logo="https://tv-res.pages.dev/logo/${logoName}.png" group-title="${group}",${name}`;
       collectM3uSource(extinf, url, collectFn);
       m3uLines.push(extinf, url);
       count++;
