@@ -64,4 +64,10 @@ describe('default_txt_filter', () => {
     });
     expect(count).toBe(2);
   });
+
+  it('should use lowercase cctv in logo filename', () => {
+    const raw = ['#央视#', 'CCTV1,https://cctv1.com'].join('\n');
+    const [m3u] = default_txt_filter(raw, 'normal', () => {});
+    expect(m3u).toContain('tvg-logo="https://tv-res.pages.dev/logo/cctv1.png"');
+  });
 });
