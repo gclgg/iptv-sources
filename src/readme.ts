@@ -96,7 +96,10 @@ export const updateReadme = (
                 : 'update failed'
             } |`
         )
-        .join('\n')}\n\nUpdated at **${new Date()}**`
+        .join('\n')}
+| epg.pw（中国地区聚合） | [epg_pw.xml](/epg/epg_pw.xml) | 独立构建 |
+
+\n\nUpdated at **${new Date()}**`
     );
 
   if (!fs.existsSync(path.join(path.resolve(), 'm3u'))) {

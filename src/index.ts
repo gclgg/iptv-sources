@@ -16,6 +16,7 @@ import { updateChannelList, updateReadme } from './readme';
 import { sources } from './sources';
 import { updateByRollback, updateEPGByRollback } from './rollback';
 import { epgs_sources } from './epgs';
+import { buildEpgPwXml } from './epgs/epg_pw';
 import { writeTvBoxJson } from './tvbox';
 import { Collector } from './utils';
 import { runCustomTask } from './task/custom';
@@ -120,6 +121,16 @@ cleanFiles();
         }
       })
     );
+
+    // epg.pw EPG: 从频道列表页抓取所有频道并逐一拉取 EPG，合并为完整 XML
+    try {
+      console.log('[TASK] Build EPG from epg.pw ...');
+      const epgPwXml = await buildEpgPwXml();
+      writeEpgXML('epg_pw', epgPwXml);
+      console.log('[TASK] EPG from epg.pw written successfully');
+    } catch (e) {
+      console.warn('[WARNING] EPG from epg.pw failed:', e);
+    }
 
     console.log(`[TASK] Write important files`);
     type SourceSettled = PromiseSettledResult<(string | number)[] | (string | undefined)[]>;

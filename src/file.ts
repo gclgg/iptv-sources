@@ -100,7 +100,33 @@ export const writeEpgXML = (f_name: string, xml: string) => {
 };
 
 /**
- * 解析 m3u/epg 下所有 .xml，按日期(YYYYmmdd)、频道生成 JSON 到 epg/YYYYmmdd/channelname.json
+ * 将单份 XMLTV XML 解析为 TVBox 所需的按日期、频道 JSON 文件
+ * 输出路径: m3u/epg/{provider}/{YYYY-MM-DD}/{频道名}.json
+ */
+export const writeEpgJsonFromXml = (provider: string, xml: string) => {
+  const epgDir = path.resolve('m3u', 'epg');
+  if (!fs.existsSync(epgDir)) {
+    fs.mkdirSync(epgDir, { recursive: true });
+  }
+
+  const allItems = parseEpgXml(xml);
+  const byDateChannel = mergeByDateAndChannel(allItems);
+  console.log(
+    `[TASK] Merge EPG JSON (${provider}) by date and channel, total ${byDateChannel.size} items`
+  );
+  for (const [key, data] of byDateChannel) {
+    const [date, channel] = key.split('\t');
+    const dateDir = path.join(epgDir, provider, date);
+    if (!fs.existsSync(dateDir)) fs.mkdirSync(dateDir, { recursive: true });
+    const fileName = `${sanitizeChannelFileName(channel)}.json`;
+    fs.writeFileSync(path.join(dateDir, fileName), JSON.stringify(data, null, 2));
+    console.log(`[TASK] Write EPG JSON for ${provider} ${date} ${channel}`);
+  }
+};
+
+/**
+ * 解析 m3u/epg 下所有 .xml，按日期(YYYYmmdd)、频道生成 JSON 到 epg/{provider}/{date}/channelname.json
+ * （epg_pw 在构建时由 epg_pw 模块单独写入 JSON，此处跳过避免重复解析大文件）
  */
 export const writeEpgJsonByDate = () => {
   const epgDir = path.resolve('m3u', 'epg');
@@ -112,24 +138,10 @@ export const writeEpgJsonByDate = () => {
   );
 
   for (const f of xmlFiles) {
-    const allItems: Array<{
-      date: string;
-      channel: string;
-      item: import('./epgs/parser').EpgProgrammeItem;
-    }> = [];
+    if (f === 'epg_pw.xml') continue;
+    const provider = f.split('.')[0];
     const xml = fs.readFileSync(path.join(epgDir, f), 'utf-8');
-    allItems.push(...parseEpgXml(xml));
-    const byDateChannel = mergeByDateAndChannel(allItems);
-    console.log(`[TASK] Merge EPG JSON by date and channel, total ${byDateChannel.size} items`);
-    for (const [key, data] of byDateChannel) {
-      const [date, channel] = key.split('\t');
-      const provider = f.split('.')[0];
-      const dateDir = path.join(epgDir, provider, date);
-      if (!fs.existsSync(dateDir)) fs.mkdirSync(dateDir, { recursive: true });
-      const fileName = `${sanitizeChannelFileName(channel)}.json`;
-      fs.writeFileSync(path.join(dateDir, fileName), JSON.stringify(data, null, 2));
-      console.log(`[TASK] Write EPG JSON for ${date} ${channel}`);
-    }
+    writeEpgJsonFromXml(provider, xml);
   }
 };
 

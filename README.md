@@ -24,6 +24,7 @@
 | 来源 | 说明 |
 |------|------|
 | [epg.51zmt.top:8000](http://epg.51zmt.top:8000/) | 央视、卫视及地方频道 |
+| [epg.pw](https://epg.pw/) | 抓取中国地区频道列表并合并为一份 XMLTV；同时生成 TVBox 用按日/频道 JSON（`epg/epg_pw/…`） |
 
 ## EPG 使用说明
 
@@ -51,11 +52,13 @@
 
 ### TVBox EPG（静态 JSON）
 
-本项目会将 XMLTV 格式的 EPG 数据解析后，按日期和频道拆分为独立的 JSON 文件，以 `epg/{provider}/{date}/{channel}.json` 的路径结构部署到 Cloudflare Pages。
+本项目会将 XMLTV 格式的 EPG 数据解析后，按日期和频道拆分为独立的 JSON 文件，以 `epg/{provider}/{date}/{channel}.json` 的路径结构部署到 Cloudflare Pages。其中 `provider` 与 XML 文件名一致，例如 `51zmt`、`epg_pw` 等。
 
 利用 TVBox 的 EPG 链接动态参数替换特性（`{date}` 替换为当天日期，`{name}` 替换为频道名），你只需配置一个 URL 模板，TVBox 就能自动请求到对应的静态 JSON 文件，无需任何后端服务。
 
-在直播源 JSON 中添加 `epg` 字段：
+在直播源 JSON 中添加 `epg` 字段（任选其一数据源，需与 M3U 里频道名称尽量一致）：
+
+**51zmt 系列：**
 
 ```json
 {
@@ -71,6 +74,14 @@
     }
   ],
   "epg": "https://your-domain.pages.dev/epg/51zmt/{date}/{name}.json"
+}
+```
+
+**epg.pw 聚合（中国地区）：**
+
+```json
+{
+  "epg": "https://your-domain.pages.dev/epg/epg_pw/{date}/{name}.json"
 }
 ```
 

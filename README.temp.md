@@ -14,6 +14,7 @@ GitHub: [HerbertHe/iptv-sources](https://github.com/HerbertHe/iptv-sources)
 EPG 数据源来自：
 
 - [epg.51zmt.top:8000](http://epg.51zmt.top:8000/)
+- [epg.pw](https://epg.pw/)（构建时抓取中国地区频道并合并为 [epg_pw.xml](/epg/epg_pw.xml)，并生成 TVBox JSON：`epg/epg_pw/{date}/{name}.json`）
 
 ## Matrix
 
@@ -36,13 +37,12 @@ You can also use the services provided by Mirror Sites Matrix! See <https://m3u.
 
 本站将 EPG 数据按日期和频道拆分为静态 JSON 文件，可直接在 TVBox 中使用。
 
-EPG 链接格式：
+EPG 链接格式（`{date}`、`{name}` 由 TVBox 自动替换）：
 
-```
-{site_url}/epg/51zmt/{date}/{name}.json
-```
+- 51zmt：`{site_url}/epg/51zmt/{date}/{name}.json`
+- epg.pw 聚合：`{site_url}/epg/epg_pw/{date}/{name}.json`
 
-在 TVBox 直播源 JSON 中添加 `epg` 字段即可查看节目预告。
+在 TVBox 直播源 JSON 的 `epg` 字段中填入上述任一完整 URL（将 `{site_url}` 换成本站域名）即可查看节目预告。
 
 ## LICENSE
 

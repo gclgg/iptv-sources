@@ -98,13 +98,19 @@ Cloudflare Pages 的免费套餐没有带宽和请求次数的限制，背后是
 
 ### 直接用
 
-在 TVBox 的配置里，把 EPG 地址改成：
+在 TVBox 的配置里，把 EPG 地址改成（按你使用的数据源二选一或自行切换）：
 
 ```
 https://your-domain.pages.dev/epg/51zmt/{date}/{name}.json
 ```
 
-把 `your-domain.pages.dev` 替换成实际可用的域名就行。
+若使用本站从 [epg.pw](https://epg.pw/) 聚合的中国地区 EPG，可改为：
+
+```
+https://your-domain.pages.dev/epg/epg_pw/{date}/{name}.json
+```
+
+把 `your-domain.pages.dev` 替换成实际可用的域名就行。频道名需与 JSON 文件名一致，否则 TVBox 无法匹配到对应文件。
 
 如果你用的是 TVBox 的 JSON 配置格式，加一个 `epg` 字段：
 
