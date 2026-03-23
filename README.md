@@ -92,30 +92,35 @@
 ## 自行部署
 
 1. Fork 本项目到你的 GitHub 仓库
-2. 在 Cloudflare Pages 中关联你的 GitHub 仓库
-3. GitHub Actions 会每 2 小时自动抓取最新数据并更新
-4. Cloudflare Pages 自动部署更新后的静态文件
+2. 按下方 [Cloudflare Pages 部署](#cloudflare-pages-部署) 关联仓库并完成首次构建
+3. 可完全依赖 Cloudflare Pages 在每次推送时执行构建命令，由云端重新抓取并生成静态站点
 
-整个过程完全免费、零运维。
+整个过程可完全免费、零运维（具体以 Cloudflare 与 GitHub 当前套餐为准）。
 
-## 环境变量
+## Cloudflare Pages 部署
 
-```shell
-# 自定义回退地址，默认为空
-# ROLLBACK_URLS=https://xxxx.xxx.com
+静态站点根目录为构建生成的 **`m3u/`**（M3U、TXT、`sources/`、TVBox JSON、`epg/` 等均在此目录下）。
 
-# 关闭源代理，默认 false
-# CLOSE_SOURCE_PROXY=true
+### 通过 Git 连接仓库（推荐）
 
-# 自定义 GitHub Raw 代理地址
-# CUSTOM_GITHUB_RAW_SOURCE_PROXY_URL=https://ghp.ci/
+1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/)，进入 **Workers & Pages** → **Create** → **Pages** → **Connect to Git**。
+2. 授权并选择本仓库与要部署的分支（一般为 `main`）。
+3. 构建设置如下：
 
-# 启用 IPTV 可用性检测，默认 false
-# ENABLE_IPTV_CHECKER=true
+   | 项 | 值 |
+   | --- | --- |
+   | Framework preset | `None` |
+   | Build command | ` pnpm build:static` |
+   | Build output directory | `m3u` |
 
-# IPTV 检测服务地址
-# IPTV_CHECKER_URL=http://[::1]:8081
-```
+   - 若需要生成镜像站检测表格（写入 `m3u/README.md`），可在上述 **Build command** 末尾追加 ` && pnpm build:matrix`（构建时间会显著增加）。
+
+
+### 部署后检查
+
+- 浏览器访问 `https://<你的-pages-域名>/` 应能看到站点或列表页（取决于 `public/` 内容）。
+- TVBox / M3U 中的 EPG 地址请把文档里的 `your-domain.pages.dev` 换成你的 **Pages 域名或自定义域名**。
+
 
 ## LICENSE
 
