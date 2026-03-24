@@ -2,8 +2,8 @@
   "name": "iptv-sources",
   "version": "1.6.6",
   "main": "index.js",
-  "repository": "git@github.com:HerbertHe/iptv-sources.git",
-  "author": "HerbertHe <Herbert.He0229@gmail.com>",
+  "repository": "git@github.com:whyun-pages/iptv-sources.git",
+  "author": "yunnysunny <yunnysunny@gmail.com>",
   "type": "module",
   "license": "GPL-3.0-only",
   "scripts": {
@@ -22,11 +22,7 @@
     "test:coverage": "vitest run --coverage",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write .",
-    "docker:build": "docker buildx build -t herberthe0229/iptv-sources:latest --platform=linux/arm64,linux/amd64,linux/arm/v8,linux/arm/v7 . --push",
-    "docker:build:dev": "docker buildx build -t herberthe0229/iptv-sources:dev --platform=linux/arm64,linux/amd64,linux/arm/v8,linux/arm/v7 . --push",
-    "docker:build:local": "docker buildx build -t herberthe0229/iptv-sources:dev --platform=linux/arm64,linux/amd64,linux/arm/v8,linux/arm/v7 .",
-    "push": "pnpm release && git push && pnpm docker:build"
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",

@@ -73,7 +73,9 @@ RUN mkdir -p /var/log/nginx /var/run /var/cache/nginx \
     && ln -sf /dev/stderr /var/log/nginx/error.log
 COPY --from=builder /app/dist ./dist/
 COPY --from=builder /app/m3u ./m3u/
-COPY --from=builder /app/package.json ./
+COPY --from=builder /app/package.json \
+/app/LIST.temp.md \
+/app/README.temp.md ./
 COPY --from=prod-deps /app/node_modules ./node_modules/
 COPY docker/entrypoint.sh /app/entrypoint.sh
 COPY docker/gen-config.mjs /app/gen-config.mjs
