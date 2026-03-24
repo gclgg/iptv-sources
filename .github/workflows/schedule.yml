@@ -57,6 +57,7 @@ jobs:
           PROJECT_NAME: ${{ vars.PROJECT_NAME || secrets.PROJECT_NAME }}
         run: |
           if [ -n "${CLOUDFLARE_API_TOKEN}" ]; then
+            pnpm static
             npx wrangler pages deploy m3u --project-name="${PROJECT_NAME}"
           else
             git config user.name "github-actions[bot]"
