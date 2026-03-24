@@ -1,20 +1,26 @@
 # iptv-sources
 
-自动更新的 IPTV 直播源 & 零成本 EPG 直播预告服务
+自动更新的 IPTV 直播源，支持 M3U、TXT 和 TVBox 格式，并提供基于静态文件的 EPG（电子节目预告）服务。
 
-GitHub: [HerbertHe/iptv-sources](https://github.com/HerbertHe/iptv-sources)
+- **本项目仓库**：[yunnysunny/iptv-sources](https://github.com/yunnysunny/iptv-sources)
 
-直播源来自：
+基于 [HerbertHe/iptv-sources](https://github.com/HerbertHe/iptv-sources) 开发。
 
-- <https://epg.pw/test_channel_page.html>
-- [youhun](https://github.com/HerbertHe/youhun)
-- [zbds](https://github.com/youhunwl/TVAPP)
-- [hotel_tvn](https://github.com/HerbertHe/hotel_tvn)
+## 直播源
 
-EPG 数据源来自：
+| 来源 | 说明 |
+|------|------|
+| [epg.pw](https://epg.pw/test_channel_page.html) | 全球频道 |
+| [youhun](https://github.com/HerbertHe/youhun) | 国内频道 |
+| [zbds](https://github.com/youhunwl/TVAPP) | 国内频道 |
+| [hotel_tvn](https://github.com/HerbertHe/hotel_tvn) | 酒店源 |
 
-- [epg.51zmt.top:8000](http://epg.51zmt.top:8000/)
-- [epg.pw](https://epg.pw/)（构建时抓取中国地区频道并合并为 [epg_pw.xml](/epg/epg_pw.xml)，并生成 TVBox JSON：`epg/epg_pw/{date}/{name}.json`）
+## EPG 数据源
+
+| 来源 | 说明 |
+|------|------|
+| [epg.51zmt.top:8000](http://epg.51zmt.top:8000/) | 央视、卫视及地方频道 |
+| [epg.pw](https://epg.pw/) | 抓取中国地区频道并合并为 [epg_pw.xml](/epg/epg_pw.xml)，并生成 TVBox JSON：`epg/epg_pw/{date}/{name}.json` |
 
 ## Matrix
 
