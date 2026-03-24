@@ -63,7 +63,7 @@ FROM yunnysunny/node AS runner
 WORKDIR /app
 COPY --from=toolchain /bin/busybox /usr/local/bin/busybox
 RUN mkdir -p /var/spool/cron/crontabs && \
-    echo "0 */2 * * * cd /app && /usr/local/bin/node /app/dist/index.js >> /proc/1/fd/1 2>&1" \
+    echo "0 */2 * * * cd /app && /usr/local/bin/node /app/dist/index.js && cp -r public/* m3u/ >> /proc/1/fd/1 2>&1" \
     > /var/spool/cron/crontabs/root
 COPY --from=nginx-builder /usr/sbin/nginx /usr/sbin/nginx
 COPY --from=nginx-builder /etc/nginx /etc/nginx
