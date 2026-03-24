@@ -147,6 +147,7 @@ Pages 项目需支持 **Direct Upload**（或通过 Wrangler 首次创建/关联
 当前 CI 构建并推送到 Docker Hub 的镜像为：
 
 - **镜像名**：`yunnysunny/iptv-sources:latest`（完整引用：`docker.io/yunnysunny/iptv-sources:latest`）
+- **按构建日期的标签**：每次推送 `main` 还会打上 **`vYYYY.m.d`**（UTC，月与日无前导零），例如 `yunnysunny/iptv-sources:v2026.3.24`；同一天多次构建会指向最后一次构建
 - **仓库页**：[hub.docker.com/r/yunnysunny/iptv-sources](https://hub.docker.com/r/yunnysunny/iptv-sources)
 - **触发方式**：`main` 分支推送时由 [`.github/workflows/docker.yml`](.github/workflows/docker.yml) 构建推送；多架构 **linux/amd64**、**linux/arm64**
 
