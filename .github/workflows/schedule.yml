@@ -4,6 +4,10 @@ on:
   schedule:
     - cron: "0 */2 * * *"
   workflow_dispatch:  # ← 添加这行，允许手动触发测试
+
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -40,6 +44,21 @@ jobs:
       - run: pnpm build
       - run: pnpm m3u
       - run: pnpm matrix
+
+      - name: Publish m3u (Cloudflare direct upload or empty commit)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PROJECT_NAME: ${{ vars.PROJECT_NAME || secrets.PROJECT_NAME }}
+        run: |
+          if [ -n "${CLOUDFLARE_API_TOKEN}" ]; then
+            npx wrangler pages deploy m3u --project-name="${PROJECT_NAME}"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit --allow-empty -m "chore: schedule refresh (trigger Cloudflare Pages build)"
+            git push
+          fi
 
       # - name: "Jekyll theme"
       #   run: mv ./_config.temp.yml ./m3u/_config.yml

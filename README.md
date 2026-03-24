@@ -2,6 +2,8 @@
 
 自动更新的 IPTV 直播源，支持 M3U、TXT 和 TVBox 格式，并提供基于静态文件的 EPG（电子节目预告）服务。
 
+- **本项目仓库**：[yunnysunny/iptv-sources](https://github.com/yunnysunny/iptv-sources)
+
 基于 [HerbertHe/iptv-sources](https://github.com/HerbertHe/iptv-sources) 开发。
 
 ## 特性
@@ -93,7 +95,7 @@
 
 1. Fork 本项目到你的 GitHub 仓库
 2. 按下方 [Cloudflare Pages 部署](#cloudflare-pages-部署) 关联仓库并完成首次构建
-3. 可完全依赖 Cloudflare Pages 在每次推送时执行构建命令，由云端重新抓取并生成静态站点
+3. **定时更新**：由 GitHub Actions 的 `schedule` 工作流每 2 小时抓取并生成静态资源；若配置了 Cloudflare 直连上传凭据则直接发布 `m3u/`，否则通过空 commit 触发 Pages 在云端构建。推送代码时仍可按你在 Pages 里配置的构建命令由云端重新构建
 
 整个过程可完全免费、零运维（具体以 Cloudflare 与 GitHub 当前套餐为准）。
 
@@ -115,6 +117,24 @@
 
    - 若需要生成镜像站检测表格（写入 `m3u/README.md`），可在上述 **Build command** 末尾追加 ` && pnpm build:matrix`（构建时间会显著增加）。
 
+### 定时更新（GitHub Actions `schedule`）
+
+仓库中的 [`.github/workflows/schedule.yml`](.github/workflows/schedule.yml) 按 cron **每 2 小时**执行：安装依赖、`pnpm build`、`pnpm m3u`、`pnpm matrix`，然后根据是否配置 Cloudflare 直连上传凭据，选择两种后续行为之一：
+
+| 条件 | 行为 |
+| --- | --- |
+| 已设置 Secret **`CLOUDFLARE_API_TOKEN`**（非空） | 在 Runner 上通过 `npx wrangler pages deploy` 将本地生成的 **`m3u/`** 目录发布到指定 Pages 项目（**Direct Upload**） |
+| 未设置该 Secret | 向当前分支推送一个**空 commit**，利用 Cloudflare Pages「连接 Git」时的推送触发，在 Cloudflare 侧按你在控制台配置的构建命令重新构建站点 |
+
+直连上传时，请在 GitHub 仓库中配置：
+
+| 类型 | 名称 | 说明 |
+| --- | --- | --- |
+| Secret | `CLOUDFLARE_API_TOKEN` | Cloudflare API 令牌，需包含 Pages 写入权限 |
+| Secret | `CLOUDFLARE_ACCOUNT_ID` | 账户 ID（Dashboard 右侧或 Workers 概览可见） |
+| Variable 或 Secret | `PROJECT_NAME` | 目标 **Pages 项目名称**（与 Cloudflare 控制台中的项目名一致）；优先读取 Repository variable `PROJECT_NAME`，未设置时再读同名 Secret |
+
+Pages 项目需支持 **Direct Upload**（或通过 Wrangler 首次创建/关联）。若走「空 commit」分支，请确保默认分支未开启会阻止 `github-actions[bot]` 推送的保护规则，否则 push 会失败。
 
 ### 部署后检查
 
