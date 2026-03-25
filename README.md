@@ -2,9 +2,7 @@
 
 自动更新的 IPTV 直播源，支持 M3U、TXT 和 TVBox 格式，并提供基于静态文件的 EPG（电子节目预告）服务。
 
-- **本项目仓库**：[yunnysunny/iptv-sources](https://github.com/yunnysunny/iptv-sources)
-
-基于 [HerbertHe/iptv-sources](https://github.com/HerbertHe/iptv-sources) 开发。
+**本项目仓库**：[yunnysunny/iptv-sources](https://github.com/yunnysunny/iptv-sources) 基于 [HerbertHe/iptv-sources](https://github.com/HerbertHe/iptv-sources) 开发。
 
 ## 特性
 
